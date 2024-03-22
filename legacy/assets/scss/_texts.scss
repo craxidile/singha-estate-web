@@ -1,0 +1,89 @@
+@tailwind base;
+
+@mixin fontSize($selector, $fontFamily, $textSize, $lineHeight, $fontWeight) {
+
+  $text: '.text-';
+  $id: $text + $selector;
+
+  @responsive {
+    #{$id} {
+      font-family: $fontFamily;
+      font-size: $textSize;
+      font-weight: $fontWeight;
+      line-height: $lineHeight;
+    }
+    @for $clamp from 1 through 10 {
+      #{$id}-clamp-#{$clamp} {
+        @apply overflow-hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $clamp;
+        font-family: $fontFamily;
+        font-size: $textSize;
+        font-weight: $fontWeight;
+        line-height: $lineHeight;
+        max-height: calc($clamp * $lineHeight);
+      }
+    }
+  }
+
+}
+
+@layer components {
+
+  // Serif
+  @include fontSize('serif-h1-nm', theme('fontFamily.serif'), 4rem, 5rem, theme('fontWeight.normal'));
+  @include fontSize('serif-h1-sb', theme('fontFamily.serif'), 4rem, 5rem, theme('fontWeight.semibold'));
+  @include fontSize('serif-h1-bd', theme('fontFamily.serif'), 4rem, 5rem, theme('fontWeight.bold'));
+  @include fontSize('serif-h2-nm', theme('fontFamily.serif'), 3.5rem, 4.5rem, theme('fontWeight.normal'));
+  @include fontSize('serif-h2-sb', theme('fontFamily.serif'), 3.5rem, 4.5rem, theme('fontWeight.semibold'));
+  @include fontSize('serif-h2-bd', theme('fontFamily.serif'), 3.5rem, 4.5rem, theme('fontWeight.bold'));
+  @include fontSize('serif-h3-nm', theme('fontFamily.serif'), 2.75rem, 3.625rem, theme('fontWeight.normal'));
+  @include fontSize('serif-h3-sb', theme('fontFamily.serif'), 2.75rem, 3.625rem, theme('fontWeight.semibold'));
+  @include fontSize('serif-h3-bd', theme('fontFamily.serif'), 2.75rem, 3.625rem, theme('fontWeight.bold'));
+  @include fontSize('serif-h4-nm', theme('fontFamily.serif'), theme('fontSize.4xl'), 2.75rem, theme('fontWeight.normal'));
+  @include fontSize('serif-h4-sb', theme('fontFamily.serif'), theme('fontSize.4xl'), 2.75rem, theme('fontWeight.semibold'));
+  @include fontSize('serif-h4-bd', theme('fontFamily.serif'), theme('fontSize.4xl'), 2.75rem, theme('fontWeight.bold'));
+  @include fontSize('serif-h5-nm', theme('fontFamily.serif'), 1.75rem, theme('lineHeight.9'), theme('fontWeight.normal'));
+  @include fontSize('serif-h5-sb', theme('fontFamily.serif'), 1.75rem, theme('lineHeight.9'), theme('fontWeight.semibold'));
+  @include fontSize('serif-h5-bd', theme('fontFamily.serif'), 1.75rem, theme('lineHeight.9'), theme('fontWeight.bold'));
+  @include fontSize('serif-h6-nm', theme('fontFamily.serif'), theme('fontSize.2xl'), theme('lineHeight.7'), theme('fontWeight.normal'));
+  @include fontSize('serif-h6-sb', theme('fontFamily.serif'), theme('fontSize.2xl'), theme('lineHeight.7'), theme('fontWeight.semibold'));
+  @include fontSize('serif-h6-bd', theme('fontFamily.serif'), theme('fontSize.2xl'), theme('lineHeight.7'), theme('fontWeight.bold'));
+
+  // Sans
+  @include fontSize('sans-h1-nm', theme('fontFamily.sans'), 4rem, 5rem, theme('fontWeight.normal'));
+  @include fontSize('sans-h1-sb', theme('fontFamily.sans'), 4rem, 5rem, theme('fontWeight.semibold'));
+  @include fontSize('sans-h1-bd', theme('fontFamily.sans'), 4rem, 5rem, theme('fontWeight.bold'));
+  @include fontSize('sans-h2-nm', theme('fontFamily.sans'), 3.5rem, 4.5rem, theme('fontWeight.normal'));
+  @include fontSize('sans-h2-sb', theme('fontFamily.sans'), 3.5rem, 4.5rem, theme('fontWeight.semibold'));
+  @include fontSize('sans-h2-bd', theme('fontFamily.sans'), 3.5rem, 4.5rem, theme('fontWeight.bold'));
+  @include fontSize('sans-h3-nm', theme('fontFamily.sans'), 2.75rem, 3.625rem, theme('fontWeight.normal'));
+  @include fontSize('sans-h3-sb', theme('fontFamily.sans'), 2.75rem, 3.625rem, theme('fontWeight.semibold'));
+  @include fontSize('sans-h3-bd', theme('fontFamily.sans'), 2.75rem, 3.625rem, theme('fontWeight.bold'));
+  @include fontSize('sans-h4-nm', theme('fontFamily.sans'), theme('fontSize.4xl'), 2.75, theme('fontWeight.normal'));
+  @include fontSize('sans-h4-sb', theme('fontFamily.sans'), theme('fontSize.4xl'), 2.75, theme('fontWeight.semibold'));
+  @include fontSize('sans-h4-bd', theme('fontFamily.sans'), theme('fontSize.4xl'), 2.75, theme('fontWeight.bold'));
+  @include fontSize('sans-h5-nm', theme('fontFamily.sans'), 1.75rem, theme('lineHeight.9'), theme('fontWeight.normal'));
+  @include fontSize('sans-h5-sb', theme('fontFamily.sans'), 1.75rem, theme('lineHeight.9'), theme('fontWeight.semibold'));
+  @include fontSize('sans-h5-bd', theme('fontFamily.sans'), 1.75rem, theme('lineHeight.9'), theme('fontWeight.bold'));
+  @include fontSize('sans-h6-nm', theme('fontFamily.sans'), theme('fontSize.2xl'), theme('lineHeight.7'), theme('fontWeight.normal'));
+  @include fontSize('sans-h6-sb', theme('fontFamily.sans'), theme('fontSize.2xl'), theme('lineHeight.7'), theme('fontWeight.semibold'));
+  @include fontSize('sans-h6-bd', theme('fontFamily.sans'), theme('fontSize.2xl'), theme('lineHeight.7'), theme('fontWeight.bold'));
+  @include fontSize('body-1-nm', theme('fontFamily.sans'), theme('fontSize.xl'), 1.625rem, theme('fontWeight.normal'));
+  @include fontSize('body-1-sb', theme('fontFamily.sans'), theme('fontSize.xl'), 1.625rem, theme('fontWeight.semibold'));
+  @include fontSize('body-1-bd', theme('fontFamily.sans'), theme('fontSize.xl'), 1.625rem, theme('fontWeight.bold'));
+  @include fontSize('body-2-nm', theme('fontFamily.sans'), theme('fontSize.lg'), 1.375rem, theme('fontWeight.normal'));
+  @include fontSize('body-2-sb', theme('fontFamily.sans'), theme('fontSize.lg'), 1.375rem, theme('fontWeight.semibold'));
+  @include fontSize('body-2-bd', theme('fontFamily.sans'), theme('fontSize.lg'), 1.375rem, theme('fontWeight.bold'));
+  @include fontSize('body-3-nm', theme('fontFamily.sans'), theme('fontSize.base'), theme('lineHeight.6'), theme('fontWeight.normal'));
+  @include fontSize('body-3-sb', theme('fontFamily.sans'), theme('fontSize.base'), theme('lineHeight.6'), theme('fontWeight.semibold'));
+  @include fontSize('body-3-bd', theme('fontFamily.sans'), theme('fontSize.base'), theme('lineHeight.6'), theme('fontWeight.bold'));
+  @include fontSize('caption-nm', theme('fontFamily.sans'), theme('fontSize.sm'), 1.125rem, theme('fontWeight.normal'));
+  @include fontSize('caption-sb', theme('fontFamily.sans'), theme('fontSize.sm'), 1.125rem, theme('fontWeight.semibold'));
+  @include fontSize('caption-bd', theme('fontFamily.sans'), theme('fontSize.sm'), 1.125rem, theme('fontWeight.bold'));
+  @include fontSize('remark-nm', theme('fontFamily.sans'), theme('fontSize.xs'), theme('lineHeight.4'), theme('fontWeight.normal'));
+  @include fontSize('remark-sb', theme('fontFamily.sans'), theme('fontSize.xs'), theme('lineHeight.4'), theme('fontWeight.semibold'));
+  @include fontSize('remark-bd', theme('fontFamily.sans'), theme('fontSize.xs'), theme('lineHeight.4'), theme('fontWeight.bold'));
+
+}
