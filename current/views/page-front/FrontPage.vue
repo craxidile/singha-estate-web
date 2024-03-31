@@ -9,6 +9,17 @@ import LifestyleSection from "~/views/page-front/sections/section-lifestyle/Life
 import PromotionSection from "~/views/page-front/sections/section-promotion/PromotionSection.vue";
 import ResidenceSection from "~/views/page-front/sections/section-residence/ResidenceSection.vue";
 import PortfoliosSection from "~/views/page-front/sections/section-portfolios/PortfoliosSection.vue";
+import {useVmPageFront} from "~/stores/vm-page-front";
+
+const vmPageFront = useVmPageFront();
+
+onMounted(async () => {
+  await vmPageFront.bind();
+});
+
+onBeforeUnmount(() => {
+  vmPageFront.unbind();
+});
 
 </script>
 

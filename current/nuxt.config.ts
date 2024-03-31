@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     '~/assets/scss/styles.scss',
   ],
   modules: [
-    // '@pinia/nuxt',
+    '@pinia/nuxt',
   ],
   postcss: {
     plugins: {

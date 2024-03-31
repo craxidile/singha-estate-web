@@ -24,6 +24,7 @@ const login = async () => {
     password: apiPassword,
   });
   const {data = {}} = response || {};
+  console.log('>>data<<', data);
   ({jwt: cachedToken} = data);
   await cache.set(API_ACCESS_TOKEN_CACHE_KEY, cachedToken || '');
   await cache.expire(API_ACCESS_TOKEN_CACHE_KEY, 60 * 60 * 24);

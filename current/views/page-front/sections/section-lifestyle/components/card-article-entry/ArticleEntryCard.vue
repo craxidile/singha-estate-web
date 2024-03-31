@@ -7,6 +7,7 @@ const props = defineProps<{
   type: string,
   tags: string[],
   title: string,
+  createdAt: string,
 }>();
 
 const { banner, type, tags = [], title } = props;
@@ -15,7 +16,7 @@ const { banner, type, tags = [], title } = props;
 
 <template>
   <a href="#" class="group flex flex-col justify-start items-stretch card transition-all duration-700 ease-in-out">
-    <div class="aspect-[7/5] bg-red-500 bg-center bg-cover bg-no-repeat"
+    <div class="aspect-[7/5] bg-center bg-cover bg-no-repeat"
       :style="{ backgroundImage: `url(${banner})` }" />
     <div class="px-6 pt-6 pb-5 bg-backdrop-light space-y-3 flex flex-col justify-start items-stretch border-b border-gray-100">
       <div class="h-4 pl-3 box-border flex flex-row justify-start items-center border-l-2 border-se-yellow-500">
@@ -37,7 +38,7 @@ const { banner, type, tags = [], title } = props;
       </div>
       <div class="space-x-1 flex flex-row justify-start items-center text-txt-dark-disabled">
         <i class="text-xl leading-none icon-clock" />
-        <span class="block text-txt-gold-main text-caption-nm">{{ dayjs().format('D MMM YYYY') }}</span>
+        <span class="block text-txt-gold-main text-caption-nm">{{ dayjs(createdAt).format('D MMM YYYY') }}</span>
       </div>
     </div>
   </a>

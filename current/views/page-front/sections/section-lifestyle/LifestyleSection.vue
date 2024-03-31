@@ -1,16 +1,21 @@
 <script setup lang="ts">
 
-import imgLifeStyle01 from '~/assets/images/page-front/lifestyle-01.png';
-import PageContent from "~/views/page-front/components/page-content/PageContent.vue";
-import ArticleEntryCard
-  from "~/views/page-front/sections/section-lifestyle/components/card-article-entry/ArticleEntryCard.vue";
+import { computed } from 'vue';
+import { useVmPageFront } from '~/stores/vm-page-front';
 
-import imgHeroArticleEntry01 from '~/assets/images/page-front/hero-article-entry-01.png';
-import imgArticleEntry01 from '~/assets/images/page-front/article-entry-01.png';
-import imgArticleEntry02 from '~/assets/images/page-front/article-entry-02.png';
-import imgArticleEntry03 from '~/assets/images/page-front/article-entry-03.png';
+import PageContent from '~/views/page-front/components/page-content/PageContent.vue';
 import HeroArticleEntryCard
-  from "~/views/page-front/sections/section-lifestyle/components/card-hero-article-entry/HeroArticleEntryCard.vue";
+  from '~/views/page-front/sections/section-lifestyle/components/card-hero-article-entry/HeroArticleEntryCard.vue';
+import ArticleEntryCard
+  from '~/views/page-front/sections/section-lifestyle/components/card-article-entry/ArticleEntryCard.vue';
+
+import imgLifeStyle01 from '~/assets/images/page-front/lifestyle-01.png';
+
+const vmPageFront = useVmPageFront();
+const { articles } = storeToRefs(vmPageFront);
+
+const firstArticle = computed(() => !articles.value ? undefined : articles.value[0]);
+const otherArticles = computed(() => !articles.value ? [] : articles.value.slice(1));
 
 </script>
 
@@ -26,24 +31,30 @@ import HeroArticleEntryCard
       </div>
       <div class="sm:p-[72px] flex flex-col justify-start items-center sm:bg-cream-300">
         <div class="m-auto w-full max-w-[1096px] flex-col justify-start items-stretch">
-          <hero-article-entry-card :banner="imgHeroArticleEntry01" type="S BLOG" :tags="['S Residence']"
-            title="Singha Estate unveils RISE ABOVE strategy to drive Residential business"
+          <hero-article-entry-card
+            v-if="firstArticle"
+            :banner="firstArticle.attributes?.media?.banner?.data?.attributes?.url"
+            :type="firstArticle.attributes?.category?.data?.attributes?.title"
+            :tags="(firstArticle.attributes?.tags?.data || []).map(tag => tag.attributes?.title)"
+            :title="firstArticle.attributes?.title"
+            :created-at="firstArticle.attributes?.createdAt"
             class="hidden sm:flex mb-8" />
-          <article-entry-card :banner="imgHeroArticleEntry01" type="S BLOG" :tags="['S Residence']"
-            title="Singha Estate unveils RISE ABOVE strategy to drive Residential business"
+          <article-entry-card
+            v-if="firstArticle"
+            :banner="firstArticle.attributes?.media?.banner?.data?.attributes?.url"
+            :type="firstArticle.attributes?.category?.data?.attributes?.title"
+            :tags="(firstArticle.attributes?.tags?.data || []).map(tag => tag.attributes?.title)"
+            :title="firstArticle.attributes?.title"
+            :created-at="firstArticle.attributes?.createdAt"
             class="sm:hidden mb-8" />
           <div class="space-y-8 sm:space-y-0 sm:space-x-8 flex flex-col sm:flex-row justify-start items-stretch">
-            <div class="flex-1">
-              <article-entry-card :banner="imgArticleEntry01" type="S BLOG" :tags="['Lifestyle', 'Travel']"
-                title="5 Ways to Create a Productive Working Environment" />
-            </div>
-            <div class="flex-1">
-              <article-entry-card :banner="imgArticleEntry02" type="TRAVEL" :tags="['Lifestyle', 'Travel']"
-                title="Make Your Dream Honeymoon a Reality at CROSSROADS Maldives" />
-            </div>
-            <div class="flex-1">
-              <article-entry-card :banner="imgArticleEntry03" type="S LIFE" :tags="['Lifestyle', 'Travel']"
-                title="SIRANINN Residences’ A Perfect Home for Living in an ‘Aging Society’" />
+            <div class="flex-1" v-for="article in otherArticles">
+              <article-entry-card
+                :banner="article.attributes?.media?.banner?.data?.attributes?.url"
+                :type="article.attributes?.category?.data?.attributes?.title"
+                :tags="(article.attributes?.tags?.data || []).map(tag => tag.attributes?.title)"
+                :title="article.attributes?.title"
+                :created-at="article.attributes?.createdAt" />
             </div>
           </div>
         </div>
