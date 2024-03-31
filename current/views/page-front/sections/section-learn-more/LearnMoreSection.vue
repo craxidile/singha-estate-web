@@ -7,6 +7,10 @@ import imgLearnMore from '~/assets/images/page-front/learn-more-01.png';
 import imgNewsEntry01 from '~/assets/images/page-front/news-entry-01.png';
 import imgNewsEntry02 from '~/assets/images/page-front/news-entry-02.png';
 import imgNewsEntry03 from '~/assets/images/page-front/news-entry-03.png';
+import {useVmPageFront} from "~/stores/vm-page-front";
+
+const vmPageFront = useVmPageFront();
+const { newsEntries } = storeToRefs(vmPageFront);
 
 </script>
 
@@ -39,17 +43,12 @@ import imgNewsEntry03 from '~/assets/images/page-front/news-entry-03.png';
       <div class="w-full sm:max-w-[1096px] m-auto flex flex-col justify-start items-stretch">
         <div class="space-y-10 sm:space-y-[72px] flex flex-col justify-start items-center">
           <div class="self-stretch sm:p-14 sm:bg-backdrop-blue-100 space-y-7 sm:space-y-0 sm:space-x-6 flex flex-col sm:flex-row justify-start items-stretch">
-            <div class="relative flex-1">
-              <news-entry-card title="สิงห์ เอสเตท ส่งมอบประสบการณ์สุดพิเศษ ตอบโจทย์การใช้ชีวิตครอบครัวใหญ่ที่สมบูรณ์แบบ ด้วยยอดจองกว่า 80%"
-                :banner="imgNewsEntry01" :updated-at="new Date()" />
-            </div>
-            <div class="relative flex-1">
-              <news-entry-card title="THE ESSE SUKHUMVIT 36” ชวนสัมผัส 4 ประสบการณ์สมดุลแห่งความต่างที่ลงตัวสไตล์ทรอปิคอล"
-                :banner="imgNewsEntry02" :updated-at="new Date()" />
-            </div>
-            <div class="relative flex-1">
-              <news-entry-card title="SANTIBURI The Residences คว้ารางวัล International Architecture Awards 2021"
-                :banner="imgNewsEntry03" :updated-at="new Date()" />
+            <div v-for="newsEntry in newsEntries" class="relative flex-1">
+              <news-entry-card
+                :title="newsEntry.attributes?.title"
+                :type="newsEntry.attributes?.category?.data?.attributes?.title"
+                :banner="newsEntry.attributes?.media?.banner?.data?.attributes?.url"
+                :created-at="newsEntry.attributes?.createdAt" />
             </div>
           </div>
           <button class="rounded-sm py-3 px-6 bg-btn-primary-idle">
