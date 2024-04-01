@@ -10,8 +10,17 @@ import PromotionSection from "~/views/page-front/sections/section-promotion/Prom
 import ResidenceSection from "~/views/page-front/sections/section-residence/ResidenceSection.vue";
 import PortfoliosSection from "~/views/page-front/sections/section-portfolios/PortfoliosSection.vue";
 import {useVmPageFront} from "~/stores/vm-page-front";
+import {useRoute} from "vue-router";
 
 const vmPageFront = useVmPageFront();
+const route = useRoute();
+const { params = {} } = route;
+const { locale } = params;
+
+const { data } = (await useFetch(`/api/locale/check?locale=${locale}`)) as any;
+if (!data.value.success) {
+  await navigateTo('/');
+}
 
 onMounted(async () => {
   await vmPageFront.bind();

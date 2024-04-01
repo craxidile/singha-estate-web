@@ -8,6 +8,9 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
   ],
+  routeRules: {
+    '/': {redirect: '/th'},
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

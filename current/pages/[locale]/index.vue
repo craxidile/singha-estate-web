@@ -4,7 +4,7 @@ import FrontPage from "~/views/page-front/FrontPage.vue";
 </script>
 
 <template>
-<front-page />
+  <front-page />
 </template>
 
 <style scoped>
