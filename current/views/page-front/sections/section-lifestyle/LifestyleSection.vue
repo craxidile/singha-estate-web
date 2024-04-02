@@ -10,12 +10,13 @@ import ArticleEntryCard
   from '~/views/page-front/sections/section-lifestyle/components/card-article-entry/ArticleEntryCard.vue';
 
 import imgLifeStyle01 from '~/assets/images/page-front/lifestyle-01.png';
+import type Article from "~/models/types/article";
 
 const vmPageFront = useVmPageFront();
 const { articles } = storeToRefs(vmPageFront);
 
-const firstArticle = computed(() => !articles.value ? undefined : articles.value[0]);
-const otherArticles = computed(() => !articles.value ? [] : articles.value.slice(1));
+const firstArticle = computed(() => !articles.value ? undefined : articles.value[0] as Article | undefined);
+const otherArticles = computed(() => !articles.value ? [] : articles.value.slice(1) as Article[]);
 
 </script>
 
@@ -33,28 +34,28 @@ const otherArticles = computed(() => !articles.value ? [] : articles.value.slice
         <div class="m-auto w-full max-w-[1096px] flex-col justify-start items-stretch">
           <hero-article-entry-card
             v-if="firstArticle"
-            :banner="firstArticle.attributes?.media?.banner?.data?.attributes?.url"
-            :type="firstArticle.attributes?.category?.data?.attributes?.title"
-            :tags="(firstArticle.attributes?.tags?.data || []).map(tag => tag.attributes?.title)"
-            :title="firstArticle.attributes?.title"
-            :created-at="firstArticle.attributes?.createdAt"
+            :banner="firstArticle.attributes.media?.banner?.data.attributes.url || ''"
+            :type="firstArticle.attributes.category?.data?.attributes?.title || ''"
+            :tags="(firstArticle.attributes.tags?.data || []).map(tag => tag.attributes.title)"
+            :title="firstArticle.attributes.title"
+            :published-at="firstArticle.attributes.publishedAt"
             class="hidden sm:flex mb-8" />
           <article-entry-card
             v-if="firstArticle"
-            :banner="firstArticle.attributes?.media?.banner?.data?.attributes?.url"
-            :type="firstArticle.attributes?.category?.data?.attributes?.title"
-            :tags="(firstArticle.attributes?.tags?.data || []).map(tag => tag.attributes?.title)"
-            :title="firstArticle.attributes?.title"
-            :created-at="firstArticle.attributes?.createdAt"
+            :banner="firstArticle.attributes.media?.banner?.data.attributes.url || ''"
+            :type="firstArticle.attributes.category?.data?.attributes?.title || ''"
+            :tags="(firstArticle.attributes.tags?.data || []).map(tag => tag.attributes.title)"
+            :title="firstArticle.attributes.title"
+            :published-at="firstArticle.attributes.publishedAt"
             class="sm:hidden mb-8" />
           <div class="space-y-8 sm:space-y-0 sm:space-x-8 flex flex-col sm:flex-row justify-start items-stretch">
             <div class="flex-1" v-for="article in otherArticles">
               <article-entry-card
-                :banner="article.attributes?.media?.banner?.data?.attributes?.url"
-                :type="article.attributes?.category?.data?.attributes?.title"
-                :tags="(article.attributes?.tags?.data || []).map(tag => tag.attributes?.title)"
-                :title="article.attributes?.title"
-                :created-at="article.attributes?.createdAt" />
+                :banner="article.attributes.media?.banner?.data.attributes.url || ''"
+                :type="article.attributes.category?.data.attributes.title || ''"
+                :tags="(article.attributes.tags?.data || []).map(tag => tag.attributes.title)"
+                :title="article.attributes.title"
+                :published-at="article.attributes.publishedAt" />
             </div>
           </div>
         </div>

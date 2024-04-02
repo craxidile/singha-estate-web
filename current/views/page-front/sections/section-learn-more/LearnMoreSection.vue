@@ -2,12 +2,9 @@
 
 import PageContent from "~/views/page-front/components/page-content/PageContent.vue";
 import NewsEntryCard from "~/views/page-front/sections/section-learn-more/components/card-news-entry/NewsEntryCard.vue";
+import { useVmPageFront } from "~/stores/vm-page-front";
 
 import imgLearnMore from '~/assets/images/page-front/learn-more-01.png';
-import imgNewsEntry01 from '~/assets/images/page-front/news-entry-01.png';
-import imgNewsEntry02 from '~/assets/images/page-front/news-entry-02.png';
-import imgNewsEntry03 from '~/assets/images/page-front/news-entry-03.png';
-import {useVmPageFront} from "~/stores/vm-page-front";
 
 const vmPageFront = useVmPageFront();
 const { newsEntries } = storeToRefs(vmPageFront);
@@ -45,10 +42,10 @@ const { newsEntries } = storeToRefs(vmPageFront);
           <div class="self-stretch sm:p-14 sm:bg-backdrop-blue-100 space-y-7 sm:space-y-0 sm:space-x-6 flex flex-col sm:flex-row justify-start items-stretch">
             <div v-for="newsEntry in newsEntries" class="relative flex-1">
               <news-entry-card
-                :title="newsEntry.attributes?.title"
-                :type="newsEntry.attributes?.category?.data?.attributes?.title"
-                :banner="newsEntry.attributes?.media?.banner?.data?.attributes?.url"
-                :created-at="newsEntry.attributes?.createdAt" />
+                :title="newsEntry.attributes.title"
+                :type="newsEntry.attributes.category?.data?.attributes.title || ''"
+                :banner="newsEntry.attributes.media?.banner?.data.attributes.url || ''"
+                :published-at="newsEntry.attributes.publishedAt" />
             </div>
           </div>
           <button class="rounded-sm py-3 px-6 bg-btn-primary-idle">

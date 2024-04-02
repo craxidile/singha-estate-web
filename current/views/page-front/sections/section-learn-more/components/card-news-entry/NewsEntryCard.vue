@@ -6,10 +6,10 @@ const props = defineProps<{
   banner: string,
   title: string,
   type: string,
-  createdAt: string,
+  publishedAt: string,
 }>();
 
-const { banner, title, createdAt } = props;
+const { banner, title, publishedAt } = props;
 
 </script>
 
@@ -24,7 +24,7 @@ const { banner, title, createdAt } = props;
     </div>
     <span class="text-gray-700 text-body-3-sb text-body-3-sb-clamp-2">{{ title }}</span>
     <span class="text-caption-nm text-txt-dark-disabled uppercase">
-      {{ dayjs(createdAt).format('D MMM YYYY') }}
+      {{ dayjs(publishedAt).format('D MMM YYYY') }}
     </span>
   </div>
 </a>
