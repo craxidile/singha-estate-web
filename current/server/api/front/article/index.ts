@@ -1,32 +1,31 @@
 import axios from 'axios';
 
 import login from '~/server/utils/login';
+import { getCacheJson, setCacheJson } from "~/server/utils/cache";
+
+const CACHE_KEY = 'front-articles';
 
 export default defineEventHandler(async (event) => {
 
   const query = getQuery(event);
-  const { locale = 'th' } = query;
+  const {locale = 'th'} = query;
 
-  const token = await login();
+  const cacheKey = `${locale}-${CACHE_KEY}`;
 
-  console.log(event.node.req.url);
+  let responseData = await getCacheJson(cacheKey);
 
-  const apiBaseUrl = process.env.API_BASE_URL;
-  const url = `${apiBaseUrl}/articles?populate[category]=*&&populate[tags]=*&populate[media][populate]=*`
-    + `&locale=${locale}&sort[0]=id:desc&&pagination[pageSize]=4`;
+  if (!responseData) {
+    const token = await login();
 
-  const response = await axios.get(url, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-  const { data: responseData = {} } = response;
-  const { data, meta } = responseData;
+    const apiBaseUrl = process.env.API_BASE_URL;
+    const url = `${apiBaseUrl}/articles?populate[category]=*&&populate[tags]=*&populate[media][populate]=*`
+      + `&locale=${locale}&sort[0]=id:desc&&pagination[pageSize]=4`;
 
-  return {
-    success: true,
-    meta,
-    data,
-  };
+    const response = await axios.get(url, { headers: { authorization: `Bearer ${token}` } });
+    ({data: responseData = {}} = response);
+    await setCacheJson(cacheKey, responseData);
+  }
+
+  return responseData;
 
 });

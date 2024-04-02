@@ -12,7 +12,6 @@ const API_ACCESS_TOKEN_CACHE_KEY = 'api-access-token';
 const login = async () => {
 
   let cachedToken = await cache.get(API_ACCESS_TOKEN_CACHE_KEY);
-  console.log('>>cached_token<<', cachedToken);
 
   if (cachedToken) {
     return cachedToken;
