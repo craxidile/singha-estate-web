@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import login from '~/server/utils/login';
-import {getCacheJson, setCacheJson} from "~/server/utils/cache";
-import {localeExists} from "~/server/utils/locales";
+import { getCacheJson, setCacheJson } from '~/server/utils/cache';
+import { localeExists } from '~/server/utils/locales';
 
 const CACHE_KEY = 'front-news-entries';
 
@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
 
     const response = await axios.get(url, { headers: { authorization: `Bearer ${token}` } });
     ({data: responseData = {}} = response);
+
     await setCacheJson(cacheKey, responseData);
   }
 
